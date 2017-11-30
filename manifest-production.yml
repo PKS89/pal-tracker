@@ -5,3 +5,5 @@ applications:
    host: ps-pal-tracker-pks
    services:
        - tracker-database
+    env:
+    SECURITY_FORCE_HTTPS:ture
