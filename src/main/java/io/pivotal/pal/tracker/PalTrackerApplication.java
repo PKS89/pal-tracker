@@ -3,21 +3,26 @@ package io.pivotal.pal.tracker;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import javax.sql.DataSource;
+
 @SpringBootApplication
 
 public class PalTrackerApplication {
+    @Autowired
+    DataSource dataSource;
     public static void main(String[] args) {
         SpringApplication.run(PalTrackerApplication.class);
     }
     @Bean
     TimeEntryRepository timeEntryRepository() {
-        return new JdbcTimeEntryRepository();
+        return new JdbcTimeEntryRepository(dataSource);
     }
     @Bean
     public ObjectMapper jsonObjectMapper() {

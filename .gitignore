@@ -4,3 +4,5 @@ build
 *.iml
 ci/variables.yml
 fly.exe
+out
+
